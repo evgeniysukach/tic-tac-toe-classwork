@@ -7,38 +7,32 @@ import java.util.Scanner;
  */
 public class gameXO {
 
+    public static final int WIN_CONTINUE=0;
+    public static final int WIN_1 =1;
+    public static final int WIN_2 =2;
+    public static final int DRAW=3;
+    
+    public static final char PLAYER_1='+';
+    public static final char PLAYER_2='-';
+    public static final char EMPTY='@';
+
     public static void main(String[] args) {
-        char[][] gameField = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
+        char[][] gameField = {{EMPTY, EMPTY, EMPTY}, {EMPTY, EMPTY, EMPTY}, {EMPTY, EMPTY, EMPTY}};
         showGameField(gameField);
         int result;
-        char symbol='x';
+        char symbol=PLAYER_1;
         do{
             makeMove(gameField,symbol);
-            symbol=symbol=='x'?'0':'x';
+            symbol=symbol==PLAYER_1?PLAYER_2:PLAYER_1;
             showGameField(gameField);
             result=checkField(gameField);
-        }while (result==0);7
+        }while (result==WIN_CONTINUE);
 
-        switch(result){
-            case 1:
-                System.out.println("Победа Х");
-                break;
-            case 2:
-                System.out.println("Победа Y");
-                break;
-            case 3:
-                System.out.println("Ничья");
-        }
-
-
-
-
-
-
+        showResult(result);
 
         makeMove(gameField, symbol);
         showGameField(gameField);
-        makeMove(gameField, '0');
+        makeMove(gameField, PLAYER_2);
 
         showGameField(gameField);
 
@@ -65,7 +59,7 @@ public class gameXO {
             m = (number - 1) % 3;
 
 
-        } while (number < 1 || number > 9 || gamefield[n][m] != ' ');
+        } while (number < 1 || number > 9 || gamefield[n][m] != EMPTY);
         gamefield[n][m] = symbol;
 
 
@@ -77,31 +71,31 @@ public class gameXO {
         for (int i = 0; i < 3; i++) {
             if (gamefield[i][0] == gamefield[i][1] && gamefield[i][1] == gamefield[i][2])
             {
-                if (gamefield[i][0] == 'x')
-                    return 1;
+                if (gamefield[i][0] == PLAYER_1)
+                    return WIN_1;
 
 
-                if (gamefield[i][0] == '0')
-                    return 2;
+                if (gamefield[i][0] == PLAYER_2)
+                    return WIN_2;
 
 
             }
 
             if (gamefield[0][i] == gamefield[1][i] && gamefield[1][i] == gamefield[2][i])
             {
-                if (gamefield[0][i] == 'x')
-                    return 1;
-                if (gamefield[0][i] == '0')
-                    return 2;
+                if (gamefield[0][i] == PLAYER_1)
+                    return WIN_1;
+                if (gamefield[0][i] == PLAYER_2)
+                    return WIN_2;
             }
 
             if ((gamefield[0][0]==gamefield[1][1] && gamefield[1][1]==gamefield[2][2]) || (gamefield[0][2]==gamefield[1][1] && gamefield[1][1]==gamefield[2][0])){
-                if (gamefield[1][1] == 'x')
-                    return 1;
+                if (gamefield[1][1] == PLAYER_1)
+                    return WIN_1;
 
 
-                if (gamefield[1][1] == '0')
-                    return 2;
+                if (gamefield[1][1] == PLAYER_2)
+                    return WIN_2;
 
             }
 
@@ -110,16 +104,30 @@ public class gameXO {
 
         for (int i = 0; i <3 ; i++) {
             for (int j = 0; j <3 ; j++) {
-                if (gamefield[i][j]==' ')
-                    return 0;
+                if (gamefield[i][j]==EMPTY)
+                    return WIN_CONTINUE;
 
 
             }
 
         }
 
-        return 3;
+        return DRAW;
 
+
+    }
+
+    public static void showResult (int result){
+        switch(result){
+            case WIN_1:
+                System.out.println("Победа"+PLAYER_1);
+                break;
+            case WIN_2:
+                System.out.println("Победа"+PLAYER_2);
+                break;
+            case DRAW:
+                System.out.println("Ничья");
+        }
 
     }
 }
