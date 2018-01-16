@@ -12,9 +12,9 @@ public class gameXO {
     public static final int WIN_2 =2;
     public static final int DRAW=3;
     
-    public static final char PLAYER_1='+';
-    public static final char PLAYER_2='-';
-    public static final char EMPTY='@';
+    public static final char PLAYER_1='X';
+    public static final char PLAYER_2='0';
+    public static final char EMPTY=' ';
 
     public static void main(String[] args) {
         char[][] gameField = {{EMPTY, EMPTY, EMPTY}, {EMPTY, EMPTY, EMPTY}, {EMPTY, EMPTY, EMPTY}};
@@ -30,11 +30,7 @@ public class gameXO {
 
         showResult(result);
 
-        makeMove(gameField, symbol);
-        showGameField(gameField);
-        makeMove(gameField, PLAYER_2);
-
-        showGameField(gameField);
+        
 
     }
 
@@ -120,10 +116,10 @@ public class gameXO {
     public static void showResult (int result){
         switch(result){
             case WIN_1:
-                System.out.println("Победа"+PLAYER_1);
+                System.out.println("Победа "+PLAYER_1);
                 break;
             case WIN_2:
-                System.out.println("Победа"+PLAYER_2);
+                System.out.println("Победа "+PLAYER_2);
                 break;
             case DRAW:
                 System.out.println("Ничья");
